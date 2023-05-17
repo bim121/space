@@ -134,13 +134,15 @@ function () {
     this.scoreDisplay = document.querySelector('#score');
     this.start = document.querySelector('#start');
     this.info = document.querySelector('#info');
-  }
+  } //конструктор для ініціалізації ігрвого поля
+
 
   CanvasView.prototype.clear = function () {
     var _a;
 
     (_a = this.context) === null || _a === void 0 ? void 0 : _a.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  };
+  }; //метод для очиски ігрового поля
+
 
   CanvasView.prototype.initStartButton = function (startFunction) {
     var _this = this;
@@ -150,21 +152,26 @@ function () {
     (_a = this.start) === null || _a === void 0 ? void 0 : _a.addEventListener('click', function () {
       return startFunction(_this);
     });
-  };
+  }; //метод для додавання на кнопку функції
+
 
   CanvasView.prototype.drawScore = function (score) {
     if (this.scoreDisplay) this.scoreDisplay.innerHTML = score.toString();
-  };
+  }; //метод для малювання рахунку
+
 
   CanvasView.prototype.drawInfo = function (text) {
     if (this.info) this.info.innerHTML = text;
-  };
+  }; //метод для малювання інформації
+
 
   CanvasView.prototype.drawSprite = function (brick) {
     var _a;
 
-    if (!brick) return;
-    (_a = this.context) === null || _a === void 0 ? void 0 : _a.drawImage(brick.image, brick.pos.x, brick.pos.y, brick.width, brick.height);
+    if (!brick) return; //перевірка чи об'єкт існує
+
+    (_a = this.context) === null || _a === void 0 ? void 0 : _a.drawImage( //якщо існує то відмалюємо його
+    brick.image, brick.pos.x, brick.pos.y, brick.width, brick.height);
   };
 
   CanvasView.prototype.drawBricks = function (bricks) {
@@ -201,49 +208,58 @@ function () {
       y: -speed
     };
     this.ballImage.src = image;
-  }
+  } //ініціалізація м'яча
+
 
   Object.defineProperty(Ball.prototype, "width", {
     get: function get() {
       return this.ballSize;
-    },
+    } //гетер для ширини
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Ball.prototype, "height", {
     get: function get() {
       return this.ballSize;
-    },
+    } //гетер для висоти
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Ball.prototype, "pos", {
     get: function get() {
       return this.position;
-    },
+    } //гетер для позиції
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Ball.prototype, "image", {
     get: function get() {
       return this.ballImage;
-    },
+    } //гетер для картинки
+    ,
     enumerable: false,
     configurable: true
   });
 
   Ball.prototype.changeYDirection = function () {
     this.speed.y = -this.speed.y;
-  };
+  }; //метод для зміни руху по y на протилежне значення, потрібний для моделювання рікошету
+
 
   Ball.prototype.changeXDirection = function () {
     this.speed.x = -this.speed.x;
-  };
+  }; //метод для зміни руху по x на протилежне значення, потрібний для моделювання рікошету
+
 
   Ball.prototype.moveBall = function () {
-    this.pos.x += this.speed.x;
-    this.pos.y += this.speed.y;
-  };
+    this.pos.x += this.speed.x; //зміна положення по x
+
+    this.pos.y += this.speed.y; //зміна положення по y
+  }; //метод для руху м'яча
+
 
   return Ball;
 }();
@@ -270,13 +286,15 @@ function () {
     this.paddleImage = new Image();
 
     this.handleKeyUp = function (e) {
-      if (e.code === 'ArrowLeft' || e.key === 'ArrowLeft') _this.moveLeft = false;
-      if (e.code === 'ArrowRight' || e.key === 'ArrowRight') _this.moveRight = false;
+      if (e.code === 'ArrowLeft' || e.key === 'ArrowLeft') _this.moveLeft = false; //якщо кнопка стілочка вліво була на клавіатурі то перестаємо рухатися вліво
+
+      if (e.code === 'ArrowRight' || e.key === 'ArrowRight') _this.moveRight = false; //якщо кнопка стілочка вправо була на клавіатурі то перестаємо рухатися вправо
     };
 
     this.handleKeyDown = function (e) {
-      if (e.code === 'ArrowLeft' || e.key === 'ArrowLeft') _this.moveLeft = true;
-      if (e.code === 'ArrowRight' || e.key === 'ArrowRight') _this.moveRight = true;
+      if (e.code === 'ArrowLeft' || e.key === 'ArrowLeft') _this.moveLeft = true; //якщо кнопка стілочка вліво була на клавіатурі то рухатися вліво
+
+      if (e.code === 'ArrowRight' || e.key === 'ArrowRight') _this.moveRight = true; //якщо кнопка стілочка вправо була на клавіатурі то рухатися вправо
     };
 
     this.speed = speed;
@@ -288,55 +306,63 @@ function () {
     this.paddleImage.src = image;
     document.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keyup', this.handleKeyUp);
-  }
+  } //конструктор для ініціалізування платформи
+
 
   Object.defineProperty(Paddle.prototype, "width", {
     get: function get() {
       return this.paddleWidth;
-    },
+    } //гетер для width
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Paddle.prototype, "height", {
     get: function get() {
       return this.paddleHeight;
-    },
+    } //гетер для height
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Paddle.prototype, "pos", {
     get: function get() {
       return this.position;
-    },
+    } //гетер для pos
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Paddle.prototype, "image", {
     get: function get() {
       return this.paddleImage;
-    },
+    } //гетер для image
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Paddle.prototype, "isMovingLeft", {
     get: function get() {
       return this.moveLeft;
-    },
+    } //гетер для чи рухається платформа вліво
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Paddle.prototype, "isMovingRight", {
     get: function get() {
-      return this.moveRight;
+      return this.moveRight; //гетер для чи рухається платформа вправо
     },
     enumerable: false,
     configurable: true
   });
 
   Paddle.prototype.movePaddle = function () {
-    if (this.moveLeft) this.pos.x -= this.speed;
-    if (this.moveRight) this.pos.x += this.speed;
-  };
+    if (this.moveLeft) this.pos.x -= this.speed; //якщо вліво рухається, то зменшуємо координату x
+
+    if (this.moveRight) this.pos.x += this.speed; //якщо вправо рухається, то збільшуємо координату x
+  }; //метод для руху платформи
+
 
   return Paddle;
 }();
@@ -411,7 +437,8 @@ var BRICK_IMAGES = {
   3: _brickYellow.default,
   4: _brickBlue.default,
   5: _brickPurple.default
-};
+}; //експортуємо константну словаря, який буде описувати яка цифра описує певне зображення камня
+
 exports.BRICK_IMAGES = BRICK_IMAGES;
 var BRICK_ENERGY = {
   1: 1,
@@ -419,9 +446,11 @@ var BRICK_ENERGY = {
   3: 2,
   4: 2,
   5: 3
-};
+}; //експортуємо константну словаря, який буде описувати кількість ударів для кожного камня, які треба зробити, щоб знищити камень
+
 exports.BRICK_ENERGY = BRICK_ENERGY;
-var LEVEL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 5, 5, 0, 0, 5, 5, 0, 0];
+var LEVEL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 5, 5, 0, 0, 5, 5, 0, 0]; //експортуємо константну масива, який буде описувати положення камнів на полі
+
 exports.LEVEL = LEVEL;
 },{"./images/brick-red.png":"images/brick-red.png","./images/brick-blue.png":"images/brick-blue.png","./images/brick-green.png":"images/brick-green.png","./images/brick-yellow.png":"images/brick-yellow.png","./images/brick-purple.png":"images/brick-purple.png"}],"sprites/Brick.ts":[function(require,module,exports) {
 "use strict";
@@ -445,43 +474,50 @@ function () {
     this.position = position;
     this.brickEnergy = brickEnergy;
     this.brickImage.src = image;
-  }
+  } //конструктор для ініцілазії камнів
+
 
   Object.defineProperty(Brick.prototype, "width", {
     get: function get() {
       return this.brickWidth;
-    },
+    } //геттер для ширини
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Brick.prototype, "height", {
     get: function get() {
       return this.brickHeight;
-    },
+    } //гетер для висоти
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Brick.prototype, "pos", {
     get: function get() {
       return this.position;
-    },
+    } //гетер для позиції
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Brick.prototype, "image", {
     get: function get() {
       return this.brickImage;
-    },
+    } //гетер для картинки
+    ,
     enumerable: false,
     configurable: true
   });
   Object.defineProperty(Brick.prototype, "energy", {
     get: function get() {
       return this.brickEnergy;
-    },
+    } //гетер для енергії
+    ,
     set: function set(energy) {
       this.brickEnergy = energy;
-    },
+    } //сеттр для енергії
+    ,
     enumerable: false,
     configurable: true
   });
@@ -517,18 +553,23 @@ var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
 
 function createBricks() {
   return _setup.LEVEL.reduce(function (ack, element, i) {
-    var row = Math.floor((i + 1) / _setup.STAGE_COLS);
-    var col = i % _setup.STAGE_COLS;
-    var x = _setup.STAGE_PADDING + col * (_setup.BRICK_WIDTH + _setup.BRICK_PADDING);
-    var y = _setup.STAGE_PADDING + row * (_setup.BRICK_HEIGHT + _setup.BRICK_PADDING);
-    if (element === 0) return ack;
+    var row = Math.floor((i + 1) / _setup.STAGE_COLS); //визначення рядка камнів
+
+    var col = i % _setup.STAGE_COLS; //визначення колонки камнів
+
+    var x = _setup.STAGE_PADDING + col * (_setup.BRICK_WIDTH + _setup.BRICK_PADDING); //визначення координати x для камня
+
+    var y = _setup.STAGE_PADDING + row * (_setup.BRICK_HEIGHT + _setup.BRICK_PADDING); //визначення координати y для камня
+
+    if (element === 0) return ack; //якщо в масиві LEVEL буде 0, то камень не створюємо
+
     return __spreadArrays(ack, [new _Brick.Brick(_setup.BRICK_WIDTH, _setup.BRICK_HEIGHT, {
       x: x,
       y: y
     }, _setup.BRICK_ENERGY[element], _setup.BRICK_IMAGES[element])]);
-  }, []);
+  }, []); //повертаємо результат як масив камнів
 }
-},{"./sprites/Brick":"sprites/Brick.ts","./setup":"setup.ts"}],"collision.ts":[function(require,module,exports) {
+},{"./sprites/Brick":"sprites/Brick.ts","./setup":"setup.ts"}],"Collision.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -542,44 +583,52 @@ function () {
   function Collision() {}
 
   Collision.prototype.isCollidingBrick = function (ball, brick) {
-    if (ball.pos.x < brick.pos.x + brick.width && ball.pos.x + ball.width > brick.pos.x && ball.pos.y < brick.pos.y + brick.height && ball.pos.y + ball.height > brick.pos.y) {
-      return true;
-    }
+    if (ball.pos.x < brick.pos.x + brick.width && ball.pos.x + ball.width > brick.pos.x && //перевірка зіткнення м'яча по x
+    ball.pos.y < brick.pos.y + brick.height && ball.pos.y + ball.height > brick.pos.y //перевірка зіткнення м'яча по y
+    ) {
+        return true; //повернення true якщо зіткнення було
+      }
 
-    return false;
+    return false; //повернення false якщо зіткнення було
   };
 
   Collision.prototype.isCollidingBricks = function (ball, bricks) {
     var _this = this;
 
-    var colliding = false;
+    var colliding = false; //створюємо зміну для збереження інформації про зіткення, по замовчуванню ініціалізуємо зміну як false
+
     bricks.forEach(function (brick, i) {
       if (_this.isCollidingBrick(ball, brick)) {
-        ball.changeYDirection();
+        //перевірка чи камень зіткнувся з м'ячем
+        ball.changeYDirection(); //моделюємо рікошет від камня
 
         if (brick.energy === 1) {
+          //якщо енергія рівна одиницю то видаляємо камень
           bricks.splice(i, 1);
         } else {
-          brick.energy -= 1;
+          brick.energy -= 1; //якщо ні, то просто видаляємо від енергії камня 1
         }
 
-        colliding = true;
+        colliding = true; //визначаємо, що зіткнення відбулося
       }
     });
-    return colliding;
+    return colliding; //повертаємо інформацію про зіткнення
   };
 
   Collision.prototype.checkBallCollision = function (ball, paddle, view) {
-    if (ball.pos.x + ball.width > paddle.pos.x && ball.pos.x < paddle.pos.x + paddle.width && ball.pos.y + ball.height === paddle.pos.y) {
-      ball.changeYDirection();
-    }
+    if (ball.pos.x + ball.width > paddle.pos.x && ball.pos.x < paddle.pos.x + paddle.width && ball.pos.y + ball.height === paddle.pos.y //перевірка чи м'яч зіткнувся з платформою
+    ) {
+        ball.changeYDirection(); //якщо так, то моделюємо рікошет
+      }
 
     if (ball.pos.x > view.canvas.width - ball.width || ball.pos.x < 0) {
-      ball.changeXDirection();
+      //перевірка чи м'яч зіткнувся зі стінками бококовими
+      ball.changeXDirection(); //якщо так, то моделюємо рікошет
     }
 
     if (ball.pos.y < 0) {
-      ball.changeYDirection();
+      //перевірка чи м'яч зіткнувся з верехньою стінкою
+      ball.changeYDirection(); //якщо так, то моделюємо рікошет
     }
   };
 
@@ -604,71 +653,93 @@ var _setup = require("./setup");
 
 var _helpers = require("./helpers");
 
-var _collision = require("./collision");
+var _Collision = require("./Collision");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var gameOver = false;
-var score = 0;
+var gameOver = false; //зміна яка буде зберігати інформацію про кінець гри
+
+var score = 0; //зміна яка буде зберігати інформацію про рахунок в грі
 
 function setGameOver(view) {
-  view.drawInfo('Game Over!');
-  gameOver = false;
+  gameOver = false; //ставимо що гра була закінчена
 }
 
 function setGameWin(view) {
-  view.drawInfo('Game Won!');
-  gameOver = false;
+  view.drawInfo('Game Won!'); //вивидимо інформацію, що гра була виграна
+
+  gameOver = false; //ставимо що гра була закінчена
 }
 
-function gameLoop(view, bricks, paddle, ball, collision) {
+function gameLoop( //функція для цикла гри
+view, bricks, paddle, ball, collision) {
   console.log('draw!');
-  view.clear();
-  view.drawBricks(bricks);
-  view.drawSprite(paddle);
-  view.drawSprite(ball);
-  ball.moveBall();
+  view.clear(); //очищення ігрового поля
 
-  if (paddle.isMovingLeft && paddle.pos.x > 0 || paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width) {
-    paddle.movePaddle();
-  }
+  view.drawBricks(bricks); //малювання камнів на полі
 
-  collision.checkBallCollision(ball, paddle, view);
-  var collidingBrick = collision.isCollidingBricks(ball, bricks);
+  view.drawSprite(paddle); //малювання платформи на полі
+
+  view.drawSprite(ball); //малювання м'яча на полі
+
+  ball.moveBall(); //починаємо рух м'яча
+
+  if (paddle.isMovingLeft && paddle.pos.x > 0 || //перевірка чи може зараз платформа рухатися вліво і чи не вийшла за межі
+  paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width //перевірка чи може зараз платформа рухатися вправо і чи не вийшла за межі
+  ) {
+      paddle.movePaddle(); //якщо можна рхуватися хоча в одну сторону і гравець прагне йти в ту сторону, то дозволяємо рух платформи
+    }
+
+  collision.checkBallCollision(ball, paddle, view); //перевірка колізій м'яча, платформи, та поля
+
+  var collidingBrick = collision.isCollidingBricks(ball, bricks); //перевірка зіткнення м'яча і камнів
 
   if (collidingBrick) {
-    score += 1;
-    view.drawScore(score);
+    //якщо зіткнення з камнем було, то
+    score += 1; //додаємо до рахунку +1
+
+    view.drawScore(score); //оновлюємо рахунок
   }
 
-  if (ball.pos.y > view.canvas.height) gameOver = true;
-  if (bricks.length === 0) return setGameWin(view);
-  if (gameOver) return setGameOver(view);
+  if (ball.pos.y > view.canvas.height) gameOver = true; //якщо м'яч улетів за поле, то ставимо кінець гри
+
+  if (bricks.length === 0) return setGameWin(view); //якщо камнів на полі не залишилося то визначаємо перемогу в грі
+
+  if (gameOver) return setGameOver(view); //якщо зміна gameOver true, то ми виконуємо завершення гри
+
   requestAnimationFrame(function () {
     return gameLoop(view, bricks, paddle, ball, collision);
-  });
+  }); //малювання анімацій камнів, платформи, м'яча і колізій
 }
 
 function startGame(view) {
-  score = 0;
-  view.drawInfo('');
-  view.drawScore(0);
-  var collision = new _collision.Collision();
-  var bricks = (0, _helpers.createBricks)();
+  score = 0; //ініціалізуємо зміну рахунку
+
+  view.drawInfo(''); //малювання інформації
+
+  view.drawScore(0); //малювання рахунку
+
+  var collision = new _Collision.Collision(); //ініціалізація колізії
+
+  var bricks = (0, _helpers.createBricks)(); //створення камнів
+
   var ball = new _Ball.Ball(_setup.BALL_SPEED, _setup.BALL_SIZE, {
     x: _setup.BALL_STARTX,
     y: _setup.BALL_STARTY
-  }, _ball.default);
+  }, _ball.default); //створення нового м'яча на полі
+
   var paddle = new _Paddle.Paddle(_setup.PADDLE_SPEED, _setup.PADDLE_WIDTH, _setup.PADDLE_HEIGHT, {
     x: _setup.PADDLE_STARTX,
     y: view.canvas.height - _setup.PADDLE_HEIGHT - 5
-  }, _paddle.default);
-  gameLoop(view, bricks, paddle, ball, collision);
+  }, _paddle.default); //створення нової платформи на полі
+
+  gameLoop(view, bricks, paddle, ball, collision); //виконання функції ігрового цикла
 }
 
-var view = new _CanvasView.CanvasView('#playField');
-view.initStartButton(startGame);
-},{"./view/CanvasView":"view/CanvasView.ts","./sprites/Ball":"sprites/Ball.ts","./sprites/Paddle":"sprites/Paddle.ts","./images/paddle.png":"images/paddle.png","./images/ball.png":"images/ball.png","./setup":"setup.ts","./helpers":"helpers.ts","./collision":"collision.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var view = new _CanvasView.CanvasView('#playField'); //Створення ігрового поля
+
+view.initStartButton(startGame); //ініціалізація  кнопки початку гри і прив'язка функції до цієї кнопки
+},{"./view/CanvasView":"view/CanvasView.ts","./sprites/Ball":"sprites/Ball.ts","./sprites/Paddle":"sprites/Paddle.ts","./images/paddle.png":"images/paddle.png","./images/ball.png":"images/ball.png","./setup":"setup.ts","./helpers":"helpers.ts","./Collision":"Collision.ts"}],"../node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -696,7 +767,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53468" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54958" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

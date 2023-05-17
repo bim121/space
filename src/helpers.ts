@@ -10,17 +10,17 @@ import {
   BRICK_ENERGY
 } from './setup';
 
-export function createBricks(): Brick[] {
+export function createBricks(): Brick[] {//метод для створення камнів
   return LEVEL.reduce((ack, element, i) => {
-    const row = Math.floor((i + 1) / STAGE_COLS);
-    const col = i % STAGE_COLS;
+    const row = Math.floor((i + 1) / STAGE_COLS);//визначення рядка камнів
+    const col = i % STAGE_COLS;//визначення колонки камнів
 
-    const x = STAGE_PADDING + col * (BRICK_WIDTH + BRICK_PADDING);
-    const y = STAGE_PADDING + row * (BRICK_HEIGHT + BRICK_PADDING);
+    const x = STAGE_PADDING + col * (BRICK_WIDTH + BRICK_PADDING);//визначення координати x для камня
+    const y = STAGE_PADDING + row * (BRICK_HEIGHT + BRICK_PADDING);//визначення координати y для камня
 
-    if (element === 0) return ack;
+    if (element === 0) return ack;//якщо в масиві LEVEL буде 0, то камень не створюємо
 
-    return [
+    return [//в іншому випадку створюємо камень відповідно до цифри в масиві LEVEL
       ...ack,
       new Brick(
         BRICK_WIDTH,
@@ -30,5 +30,5 @@ export function createBricks(): Brick[] {
         BRICK_IMAGES[element]
       )
     ];
-  }, [] as Brick[]);
+  }, [] as Brick[]);//повертаємо результат як масив камнів
 }
